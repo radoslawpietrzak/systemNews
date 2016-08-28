@@ -1,6 +1,7 @@
 *.idea
 *.iml
 *.mvn
+* mvnw
 target
 *.DS_Store*
 node_modules
