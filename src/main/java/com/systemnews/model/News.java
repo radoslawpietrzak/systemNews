@@ -15,6 +15,10 @@ public class News {
     public String text;
     public String data;
 
+    public News() {
+
+    }
+
     public News(String title, String text, String data) {
         this.title = title;
         this.text = text;
