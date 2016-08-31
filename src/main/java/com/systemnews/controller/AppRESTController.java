@@ -1,13 +1,11 @@
 package com.systemnews.controller;
 
+import com.systemnews.model.Comment;
 import com.systemnews.model.News;
 import com.systemnews.service.CommentService;
 import com.systemnews.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,4 +29,15 @@ public class AppRESTController {
     public @ResponseBody List<News> findAll() {
         return newsService.getObj();
     }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/saveNews")
+    public @ResponseBody News create( @RequestBody News newsEntity) {
+        return newsService.create(newsEntity);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/saveComment")
+    public @ResponseBody Comment create (@RequestBody Comment commentEntity) {
+        return commentService.create(commentEntity);
+    }
+
 }
