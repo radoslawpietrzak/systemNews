@@ -3,6 +3,9 @@ package com.systemnews.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * Created by RADEK on 2016-08-30.
  */
@@ -11,18 +14,26 @@ public class News {
 
     @Id
     public String id;
+    @NotNull(message = "Pole nie moze byc puste")
+    @Size(min=5, max=70, message = "Minimum 5 znaow, max 70 znakow")
     public String title;
+    @NotNull
+    @Size(min=5, message = "Minimum 5 znakow")
     public String text;
     public String data;
+    @NotNull
+    @Size(min = 1, message = "Minimum 1 znak")
+    public String author;
 
     public News() {
 
     }
 
-    public News(String title, String text, String data) {
+    public News(String title, String text, String data, String author) {
         this.title = title;
         this.text = text;
         this.data = data;
+        this.author = author;
     }
 
     public String getId() {
@@ -56,4 +67,13 @@ public class News {
     public void setData(String data) {
         this.data = data;
     }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 }
+
