@@ -48,7 +48,7 @@ public class CommentService implements ServiceInteface<Comment>, CustomInterface
     @Override
     public Comment create(Comment obj) {
 
-        return null;
+        return commmentRepository.save(obj);
     }
 
     @Override
