@@ -23,6 +23,8 @@ public class AppRESTController {
 
         private final CommentService commentService;
         private final NewsService newsService;
+        private final Map<String, Object> response = new LinkedHashMap<>();
+
 
     @Autowired
     public AppRESTController(CommentService commentService, NewsService newsService) {
@@ -43,8 +45,33 @@ public class AppRESTController {
     @RequestMapping(method = RequestMethod.POST, value = "/saveNews")
     public @ResponseBody  Map<String, Object> create(@Valid @RequestBody News newsEntity, BindingResult bindingResult) {
 
-        Map<String, Object> response = new LinkedHashMap<>();
 
+        if(checkError(bindingResult))
+        {
+            newsService.create(newsEntity);
+            response.put("message", "News created successfully");
+        }
+
+        return response;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/saveComment")
+    public @ResponseBody Map<String, Object> create (@Valid @RequestBody Comment commentEntity, BindingResult bindingResult)
+    {
+
+        if(checkError(bindingResult))
+        {
+            commentService.create(commentEntity);
+            response.put("message", "Comment created successfully");
+        }
+
+        return response;
+
+
+    }
+
+    public boolean checkError(BindingResult bindingResult)
+    {
         if(bindingResult.hasErrors())
         {
             List<FieldError> errors = bindingResult.getFieldErrors();
@@ -55,19 +82,14 @@ public class AppRESTController {
                 response.put(error.getField(), error.getDefaultMessage());
             }
 
+            return false;
+
+
         }
         else
         {
-            newsService.create(newsEntity);
-            response.put("message", "News created successfully");
+            return true;
         }
-
-        return response;
-    }
-
-    @RequestMapping(method = RequestMethod.POST, value = "/saveComment")
-    public @ResponseBody Comment create (@RequestBody Comment commentEntity) {
-        return commentService.create(commentEntity);
     }
 
 
