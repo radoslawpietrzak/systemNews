@@ -29,7 +29,7 @@ public class SystemNewsApplication implements CommandLineRunner {
 	@Override
 	public void run(String... strings) throws Exception {
 
-		News obj = new News("13.23.2016",  "Tytul", "tresc");
+		News obj = new News("13.23.2016",  "Tytul", "tresc", "aaaaa");
 
 		newsService.create(obj);
 
